@@ -66,13 +66,32 @@ function playRound(player) {
     computerWins,
   });
 
-  if (result != 0){
-    totalRounds += 1;
-  }
   // Uppfærum teljara ef ekki jafntefli, verðum að gera eftir að við setjum titil
 
+  if (result != 0){
+    currentRound ++;
+  }
+  
   // Ákveðum hvaða takka skuli sýna
 
+  if (currentRound <= totalRounds) {
+    document.querySelector('.nextRound').classList.remove('hidden');
+    document.querySelector('.finishGame').classList.add('hidden');
+  } else {
+    document.querySelector('.nextRound').classList.add('hidden');
+    document.querySelector('.finishGame').classList.remove('hidden');
+  }
+
+  
+  if (playerWins >= Math.floor(totalRounds / 2 + 1)) {
+    document.querySelector(".finishGame").classList.remove("hidden");
+    document.querySelector(".nextRound").classList.add("hidden");
+    finishGame();
+  } else if (computerWins >= Math.floor(totalRounds / 2 + 1)) {
+    document.querySelector(".finishGame").classList.remove("hidden");
+    document.querySelector(".nextRound").classList.add("hidden");
+    finishGame();
+  }
   // Sýnum niðurstöðuskjá
 }
 
@@ -82,7 +101,9 @@ function playRound(player) {
  */
 function round(e) {
   // TODO útfæra
-
+  currentRound = 1;
+  totalRounds = e.target.dataset.num;
+  show('play');
 
   
 }
@@ -115,14 +136,39 @@ function finishGame() {
   // Bætum við nýjasta leik
 
   // Uppfærum stöðu
+  if (computerWins<playerWins) {
+    totalWins++;
+  }
+  
+  games.push({
+    player: playerWins,
+    computer: computerWins,
+    wins: playerWins > computerWins,
+  });
 
+  const totalGames =games.length;
+  const totalLosses =totalGames- totalWins;
   // Bætum leik við lista af spiluðum leikjum
 
-  // Núllstillum breytur
+  document.querySelector(".games__played").textContent = totalGames.toString();
+  document.querySelector(".games__wins").textContent = totalWins.toString();
+  document.querySelector(".games__winratio").textContent = (
+    100 * (totalWins / totalGames).toFixed(4)
+  ).toString();
+  document.querySelector(".games__losses").textContent = totalLosses.toString();
+  document.querySelector(".games__lossratio").textContent = (
+    100 * (totalLosses / totalGames).toFixed(4)
+  ).toString();
 
+
+  // Núllstillum breytur
+    playerWins=0;
+    computerWins=0;
   // Byrjum nýjan leik!
+  show('start');
 }
 
 // Næsta umferð og ljúka leik takkar
 document.querySelector('button.finishGame').addEventListener('click', finishGame);
 // TODO takki sem fer með í næstu umferð
+document.querySelector('button.nextRound') .addEventListener('click', nextRound)
