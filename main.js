@@ -1,6 +1,6 @@
 // TODO hér vantar að sækja viðeigandi föll úr öðrum modules
 import { show } from './lib/ui.js';
-
+import { computerPlay } from './lib/rock-paper-scissors.js';
 /** Hámarks fjöldi best-of leikja, ætti að vera jákvæð heiltala stærri en 0 */
 const MAX_BEST_OF = 10;
 
@@ -44,6 +44,7 @@ const games = [];
  * @param {number} player Það sem spilari spilaði
  */
 function playRound(player) {
+  
   // Komumst að því hvað tölva spilaði og athugum stöðu leiks
 
   // Uppfærum result glugga áður en við sýnum, hér þarf að importa falli
@@ -70,6 +71,9 @@ function playRound(player) {
  */
 function round(e) {
   // TODO útfæra
+
+
+  
 }
 
 // Takki sem byrjar leik
@@ -78,7 +82,7 @@ document
   .addEventListener('click', () => show('rounds'));
 
 // Búum til takka
-// createButtons(MAX_BEST_OF, round);
+createButtons(MAX_BEST_OF, round);
 
 // Event listeners fyrir skæri, blað, steinn takka
 // TODO

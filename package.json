@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "scripts.js",
   "scripts": {
-    "dev": "browser-sync start --server --files main.js **/*.js styles.css index.html"
+    "dev": "browser-sync start --server --files main.js **/*.js styles.css index.html",
+    "build": "css styles.css"
   },
   "keywords": [],
   "author": "",
